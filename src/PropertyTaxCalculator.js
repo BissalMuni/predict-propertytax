@@ -14,6 +14,7 @@ const PropertyTaxCalculator = () => {
   const [fairMarketRate, setFairMarketRate] = useState(CURRENT_FAIR_MARKET_RATE); // 공정시장가액비율
   const [oneHouseFairMarketRate, setOneHouseFairMarketRate] = useState(CURRENT_ONE_HOUSE_FAIR_MARKET_RATE); // 1주택자 공정시장가액비율
   const [isInfoOpen, setIsInfoOpen] = useState(false); // 기본 정보 토글 상태
+  const [isWarningOpen, setIsWarningOpen] = useState(false); // 주의사항 토글 상태
   const [activeTab, setActiveTab] = useState('multi'); // 'multi' or 'single' - 탭 상태
 
   // 세율 테이블 (누진세율 - 2주택 이상)
@@ -222,24 +223,50 @@ const PropertyTaxCalculator = () => {
 
   return (
     <div className="calculator-container">
-      <h1>주택가격 시세에 따른 재산세액 알아보기</h1>
-
-      {/* 정보 및 세율 테이블 통합 섹션 */}
-      <div className="info-tax-wrapper">
-        <div className="warning-notice">
-          <span className="warning-icon">⚠️</span>
-          <div className="warning-text">
-            <span>테스트 중입니다. 세액 계산 검증하지 않았습니다.</span>
-            <span>과표상한 등 규정을 반영하지 않았습니다.</span>
-          </div>
-        </div>
-        <div className="info-tax-title" onClick={() => setIsInfoOpen(!isInfoOpen)}>
-          <span>기본 정보</span>
-          <span className={`toggle-icon ${isInfoOpen ? 'open' : 'closed'}`}>
-            {isInfoOpen ? '▼' : '▶'}
+      {/* 제목 섹션 - 3칸 레이아웃 */}
+      <div className="header-container">
+        <div className="header-icons">
+          <span
+            className="warning-icon-button"
+            onClick={() => setIsWarningOpen(!isWarningOpen)}
+            title="주의사항"
+          >
+            ⚠️
+          </span>
+          <span
+            className="info-icon-button"
+            onClick={() => setIsInfoOpen(!isInfoOpen)}
+            title="기본정보"
+          >
+            ℹ️
           </span>
         </div>
+        <div className="header-title">
+          <h1>주택가격 시세에 따른 재산세액 알아보기</h1>
+        </div>
+        <div className="header-spacer"></div>
+      </div>
+
+      {/* 정보 및 세율 테이블 통합 섹션 */}
+      {(isWarningOpen || isInfoOpen) && (
+      <div className="info-tax-wrapper">
+        {isWarningOpen && (
+          <div className="warning-notice">
+            <span className="warning-icon">⚠️</span>
+            <div className="warning-text">
+              <span>테스트 중입니다. 세액 계산 검증하지 않았습니다.</span>
+              <span>과표상한 등 규정을 반영하지 않았습니다.</span>
+            </div>
+          </div>
+        )}
         {isInfoOpen && (
+        <div className="info-tax-section">
+          <div className="info-tax-title" onClick={() => setIsInfoOpen(!isInfoOpen)}>
+            <span>기본 정보</span>
+            <span className={`toggle-icon ${isInfoOpen ? 'open' : 'closed'}`}>
+              {isInfoOpen ? '▼' : '▶'}
+            </span>
+          </div>
           <div className="info-tax-content">
             <div className="info-box">
               <h3>재산세 계산 과정</h3>
@@ -276,8 +303,10 @@ const PropertyTaxCalculator = () => {
               </table>
             </div>
           </div>
+        </div>
         )}
       </div>
+      )}
 
       {/* 입력 및 슬라이더 통합 섹션 */}
       <div className="input-slider-wrapper">
