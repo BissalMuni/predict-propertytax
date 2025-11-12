@@ -242,7 +242,7 @@ const PropertyTaxCalculator = () => {
           </span>
         </div>
         <div className="header-title">
-          <h1>주택가격 시세에 따른 재산세액 알아보기</h1>
+          <h1>주택 시세에 따른 재산세 변동 알아보기</h1>
         </div>
         <div className="header-spacer"></div>
       </div>
@@ -334,11 +334,12 @@ const PropertyTaxCalculator = () => {
             {marketValue && (
               <div className="calculated-market-value">
                 <span className="label">현재 기준 주택가격:</span>
+                <span className="info">(시가 × 현실화율 {CURRENT_REALITY_RATE}%)</span>
                 <span className="value">
                   {formatNumber(calculateAssessedValue(inputMarketValue, CURRENT_REALITY_RATE))}원
                   <span className="korean-amount"> ({numberToKorean(calculateAssessedValue(inputMarketValue, CURRENT_REALITY_RATE))})</span>
                 </span>
-                <span className="info">(시가 × 현실화율 {CURRENT_REALITY_RATE}%)</span>
+                
               </div>
             )}
           </div>
