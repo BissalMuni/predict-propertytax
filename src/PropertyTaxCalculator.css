@@ -49,11 +49,11 @@
 
 /* 순수 CSS 펄스 애니메이션 - 15초마다 반복 */
 .header-icons .warning-icon-button {
-  animation: pulseRepeat 10s ease-in-out infinite;
+  animation: pulseRepeat 8s ease-in-out infinite;
 }
 
 .header-icons .info-icon-button {
-  animation: pulseRepeat 15s ease-in-out infinite;
+  animation: pulseRepeat 10s ease-in-out infinite;
   animation-delay: 0.3s; /* 주의사항 아이콘 후 0.3초 딜레이 */
 }
 
